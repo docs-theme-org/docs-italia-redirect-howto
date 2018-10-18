@@ -19,6 +19,7 @@
 ## Creare un progetto ReadTheDocs temporaneo per testare il redirect
 
 * Creare nuovo progetto con nome uguale al progetto ReadTheDocs originale, ma con suffisso `-redirect` (es: `guida-docs-italia-redirect`)
+* Nelle impostazioni avanzate, selezionare la lingua corretta (tipicamente Italiano)
 * Associarvi il repo appena creato e compilare tutte le versioni necessarie
 
 ## Verificare che il redirect funzioni
