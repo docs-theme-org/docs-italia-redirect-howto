@@ -1,0 +1,49 @@
+# Questo script dovrebbe velocizzare un po' la creazione di un repo nominato "{nome-repo-ufficiale}" sotto l'organizzazione "docs-theme-org", che va poi associato al progetto -redirect su ReadTheDocs con cui sono testati tutti i redirect.
+
+# $1 nome repo ufficiale
+# $2 nome progetto su docs italia
+# $3 nome documento su docs italia
+# $4 nome progetto su readthedocs
+
+# Ex: ./create-redirect-repo lg-modellointeroperabilita-docs piano-triennale-ict lg-modellointeroperabilita-docs lg-modellointeroperabilita
+
+repository=$1
+progettoDI=$2
+documentoDI=$3
+progettoRTD=$4
+
+organizzazioneSorgente="italia"
+organizzazione="docs-theme-org"
+
+echo "Cloning repo https://github.com/$organizzazioneSorgente/$repository..." 
+git clone https://github.com/$organizzazioneSorgente/$repository
+cd $repository
+git remote rm origin
+
+echo "Copying files and creating redirect.yml..." 
+cp -Rf ../redirect/. .
+echo "domain: docs.italia.it
+publisher: $organizzazioneSorgente
+publisher_project: $progettoDI
+document_repository: $repository" > redirect.yml
+
+while true
+do
+    read -r -p "Verifica che i file siano ok e di aver creato un repo su GitHub nominato $organizzazione/$repository. Quando completato... sei pronto per push? [Y/n]" input
+    case $input in
+        [Yy]* )
+            echo "Pushing to $organizzazione/$repository.git..."
+            git add .
+            git commit -m "Redirection template added"
+            git remote add origin git@github.com:$organizzazione/$repository.git
+            git push -u origin master
+            echo "Ok, ora puoi creare un progetto su RTD nominato $progettoRTD-redirect e associarlo a https://www.github.com/$organizzazione/$repository. Aseegna come lingua l'Italiano se il documento è IT. Quando fatto e compilato lancia il redirect checker (non prima di aver modificato il suo Yaml)."
+            break;;
+        [Nn]* )
+            exit
+            ;;
+        * )
+            echo "yes or no"
+            ;;
+    esac
+done
