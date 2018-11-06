@@ -1,4 +1,6 @@
-# Questo script dovrebbe velocizzare un po' la creazione di un repo nominato "{nome-repo-ufficiale}" sotto l'organizzazione "docs-theme-org", che va poi associato al progetto -redirect su ReadTheDocs con cui sono testati tutti i redirect.
+# Questo script dovrebbe velocizzare un po' la creazione di un repo nominato "{nome-repo-ufficiale}"
+# sotto l'organizzazione "docs-theme-org", che va poi associato al progetto -redirect su ReadTheDocs
+# con cui sono testati tutti i redirect attraverso gli script di https://github.com/pdavide/docs-italia-redirect-checker
 
 # $1 nome repo ufficiale
 # $2 nome progetto su docs italia
